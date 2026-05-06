@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rizkina Aliya — Skills &amp; Policy Domain Matrix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-50: #E6F1FB; --blue-100: #B5D4F4; --blue-200: #85B7EB;
+    --blue-400: #378ADD; --blue-600: #185FA5; --blue-800: #0C447C; --blue-900: #042C53;
+    --teal-50: #E1F5EE; --teal-200: #5DCAA5; --teal-400: #1D9E75; --teal-800: #085041;
+    --purple-50: #EEEDFE; --purple-200: #AFA9EC; --purple-400: #7F77DD; --purple-800: #3C3489;
+    --gray-50: #F1EFE8; --gray-100: #D3D1C7; --gray-200: #B4B2A9; --gray-400: #888780; --gray-800: #444441;
+    --bg: #FAFAF8; --surface: #FFFFFF; --border: rgba(0,0,0,0.08); --border-strong: rgba(0,0,0,0.14);
+    --text: #1A1A18; --text-2: #5F5E5A; --text-3: #888780;
+    --radius: 10px; --radius-sm: 6px;
+  }
+
+  html { font-size: 16px; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .page { max-width: 820px; margin: 0 auto; padding: 48px 32px 80px; }
+
+  .header {
+    margin-bottom: 36px; padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 24px;
+  }
+  .header-left h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 34px; font-weight: 400;
+    color: var(--blue-900); line-height: 1.1; letter-spacing: -0.5px;
+  }
+  .header-left .sub { font-size: 14px; color: var(--text-2); margin-top: 6px; font-weight: 300; }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
+  .hbadge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+  .badge-gold { background: #FFF8E1; color: #7B5E00; border: 0.5px solid #E8C84A; }
+  .badge-blue { background: var(--blue-50); color: var(--blue-800); border: 0.5px solid var(--blue-200); }
+
+  /* FILTERS */
+  .filters { margin-bottom: 28px; display: flex; flex-direction: column; gap: 14px; }
+  .filter-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .filter-label { font-size: 11px; font-weight: 500; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.8px; width: 100%; margin-bottom: 2px; }
+  .chip {
+    font-size: 11.5px; padding: 5px 13px; border-radius: 20px;
+    border: 0.5px solid var(--border-strong); background: var(--surface);
+    color: var(--text-2); cursor: pointer; transition: all 0.15s; user-select: none;
+  }
+  .chip:hover { background: var(--gray-50); }
+  .chip.active-all { border-color: var(--text-2); color: var(--text); background: var(--gray-50); font-weight: 500; }
+  .chip.active-gov { background: var(--blue-50); color: var(--blue-800); border-color: var(--blue-200); font-weight: 500; }
+  .chip.active-priv { background: var(--teal-50); color: var(--teal-800); border-color: var(--teal-200); font-weight: 500; }
+  .chip.active-acad { background: var(--purple-50); color: var(--purple-800); border-color: var(--purple-200); font-weight: 500; }
+  .chip.active-cso { background: var(--gray-50); color: var(--gray-800); border-color: var(--gray-200); font-weight: 500; }
+  .chip.active-domain { background: var(--blue-50); color: var(--blue-800); border-color: var(--blue-200); font-weight: 500; }
+
+  .filter-divider { height: 1px; background: var(--border); margin: 2px 0; }
+
+  /* META */
+  .results-meta { font-size: 12px; color: var(--text-3); margin-bottom: 12px; }
+
+  /* GRID */
+  .matrix-grid { display: flex; flex-direction: column; gap: 5px; }
+
+  .row-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 12px 16px;
+    cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  }
+  .row-card:hover { background: #F8F8F5; border-color: var(--border-strong); }
+  .row-card.expanded { border-color: var(--border-strong); }
+
+  .row-top { display: flex; align-items: flex-start; gap: 10px; }
+  .row-skill { font-size: 13.5px; font-weight: 500; color: var(--text); flex: 1; line-height: 1.4; }
+  .row-sec-dots { display: flex; gap: 5px; align-items: center; flex-shrink: 0; padding-top: 3px; }
+  .sec-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .row-domains { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+  .d-tag {
+    font-size: 10.5px; padding: 2px 8px; border-radius: 20px;
+    background: var(--blue-50); color: var(--blue-800); border: 0.5px solid var(--blue-100);
+  }
+
+  .expand-indicator { font-size: 16px; color: var(--text-3); transition: transform 0.2s; flex-shrink: 0; line-height: 1.8; }
+  .expand-indicator.open { transform: rotate(180deg); }
+
+  .row-detail { overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
+  .row-detail.open { max-height: 500px; }
+
+  .detail-body {
+    padding: 12px 0 4px;
+    border-top: 1px solid var(--border);
+    margin-top: 10px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .detail-inst {
+    font-size: 11.5px; color: var(--text-3);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .detail-case {
+    font-size: 12.5px; color: var(--text-2); line-height: 1.7;
+    white-space: pre-line;
+  }
+
+  .empty { text-align: center; padding: 32px 0; font-size: 13px; color: var(--text-3); }
+
+  /* LEGEND */
+  .legend { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 24px; }
+  .leg { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-2); }
+  .leg-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px; color: var(--text-3); flex-wrap: wrap; gap: 8px;
+  }
+  .footer a { color: var(--blue-600); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .page { padding: 28px 18px 60px; }
+    .header { flex-direction: column; align-items: flex-start; }
+    .header-right { align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-left">
+      <h1>Rizkina Aliya</h1>
+      <div class="sub">Skills &amp; policy domain matrix — filter by sector or domain, click any row to expand</div>
+    </div>
+    <div class="header-right">
+      <span class="hbadge badge-gold">Olam International Award 2025</span>
+      <span class="hbadge badge-blue">Low Tuck Kwong Scholar · NUS LKYSPP</span>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="leg"><div class="leg-dot" style="background:#0C447C"></div>Government</div>
+    <div class="leg"><div class="leg-dot" style="background:#1D9E75"></div>Private sector</div>
+    <div class="leg"><div class="leg-dot" style="background:#7F77DD"></div>Academia</div>
+    <div class="leg"><div class="leg-dot" style="background:#888780"></div>Civil society</div>
+  </div>
+
+  <div class="filters">
+    <div class="filter-group" id="sector-filters">
+      <div class="filter-label">Sector</div>
+    </div>
+    <div class="filter-divider"></div>
+    <div class="filter-group" id="domain-filters">
+      <div class="filter-label">Policy domain</div>
+    </div>
+  </div>
+
+  <div class="results-meta" id="meta"></div>
+  <div class="matrix-grid" id="grid"></div>
+
+  <div class="footer">
+    <span>Rizkina Aliya · Jakarta, Indonesia · r.aliya@u.nus.edu · +65 9123 5751</span>
+    <a href="https://www.linkedin.com/in/ninaaliya/" target="_blank">linkedin.com/in/ninaaliya ↗</a>
+  </div>
+</div>
+
+<script>
+const SECTORS = {
+  'Government':            { dot:'#0C447C', activeClass:'active-gov' },
+  'Private sector':        { dot:'#1D9E75', activeClass:'active-priv' },
+  'Academia':              { dot:'#7F77DD', activeClass:'active-acad' },
+  'Civil society / legal': { dot:'#888780', activeClass:'active-cso' },
+};
+
+const data = [
+  {
+    skill:'Policy analysis & research',
+    sectors:['Government','Academia'],
+    domains:['Land & forestry','Environmental sustainability','Gender','Digital policy','Health','Public administration'],
+    institution:'KSP · ATR/BPN · NUS LKYSPP · Universitas Indonesia',
+    caseText:'Conducted policy research and analysis across agrarian reform, social forestry, tobacco regulation, just transition, and EV procurement\n\nFamiliar with qualitative and quantitative methods including regulatory analysis, narrative policy framework, and mixed-methods approaches'
+  },
+  {
+    skill:'Regulatory & legal analysis',
+    sectors:['Government','Academia','Civil society / legal'],
+    domains:['Land & forestry','Gender','Environmental sustainability'],
+    institution:'ATR/BPN · KSP · Universitas Indonesia',
+    caseText:'Drafted and reviewed ministerial and presidential regulations on land, agrarian reform, and social forestry\n\nConducted legal analysis under Indonesian statutory and customary law frameworks; ILO-commissioned gender analysis of migrant worker legislation (Law No. 18/2017)'
+  },
+  {
+    skill:'Policy writing & drafting',
+    sectors:['Government'],
+    domains:['Land & forestry','Gender','Public administration'],
+    institution:'ATR/BPN · KSP',
+    caseText:'Drafted presidential and ministerial regulations, policy briefs, and task force documentation on agrarian reform, social forestry, and domestic worker protection\n\nPrepared executive communications and monthly narrative reports for the Deputy of Human Development'
+  },
+  {
+    skill:'Strategic communications & narrative design',
+    sectors:['Government','Private sector'],
+    domains:['Land & forestry','Environmental sustainability','Health','Market access'],
+    institution:'KSP · BCW Indonesia',
+    caseText:'Designed monthly cross-ministry communications narratives for agrarian reform and social forestry\n\nDeveloped and presented public affairs proposals on ESG and government communications; led G20 Indonesia Presidency campaign (BCW Asia Pacific Bronze Award 2023)'
+  },
+  {
+    skill:'APAC government relations & regulatory intelligence',
+    sectors:['Private sector'],
+    domains:['Digital policy','Market access','Environmental sustainability'],
+    institution:'The LEGO Group · BCW Indonesia',
+    caseText:'Monitored and synthesised APAC regulatory developments across digital policy, market access, sustainability, and IP for multinational clients\n\nEngaged government stakeholders across Indonesia, Singapore, Australia, and Southeast Asia on trade, digital, and product safety policy'
+  },
+  {
+    skill:'Stakeholder mapping & multi-stakeholder facilitation',
+    sectors:['Government','Private sector'],
+    domains:['Land & forestry','Environmental sustainability','Health'],
+    institution:'ATR/BPN · KSP · BCW Indonesia',
+    caseText:'Mapped and engaged stakeholders across government, civil society, and industry in agrarian reform and social forestry processes\n\nDeveloped client issues maps weighted by severity and stakeholder influence for ESG and public affairs mandates'
+  },
+  {
+    skill:'Issues management & crisis communications',
+    sectors:['Private sector'],
+    domains:['Environmental sustainability','Health','Digital policy'],
+    institution:'BCW Indonesia',
+    caseText:'Developed client issues maps weighted by issue severity and media tier\n\nCrisis cases: FMCG and manufacturing layoffs, tobacco restrictions, palm oil-linked forest fires, digital platform crises'
+  },
+  {
+    skill:'Narrative policy analysis',
+    sectors:['Academia'],
+    domains:['Health','Land & forestry'],
+    institution:'NUS LKYSPP',
+    caseText:'Applied the Narrative Policy Framework to compare tobacco regulation narratives in Singapore and Malaysia (published, ICPP7 2025)\n\nFamiliar with framing and discourse analysis approaches to policy research'
+  },
+  {
+    skill:'Mixed methods qualitative research',
+    sectors:['Academia'],
+    domains:['Land & forestry','Gender','Public administration'],
+    institution:'NUS LKYSPP · Universitas Indonesia',
+    caseText:'Methods: survey design, FGD/interview, regulatory analysis\n\nApplied across agrarian reform stakeholder studies, gender and law research, and policy implementation analysis'
+  },
+  {
+    skill:'Quantitative research & econometrics',
+    sectors:['Academia'],
+    domains:['Public administration','Health','Land & forestry'],
+    institution:'NUS LKYSPP',
+    caseText:'Methods: OLS regression; working knowledge of DiD and RDD\n\nCase studies: demographic predictors of financial access among Indonesians (2017); infrastructure and social protection as determinants of SEA migration balance (2007–2017)'
+  },
+  {
+    skill:'Python (data analysis)',
+    sectors:['Academia'],
+    domains:['Public administration'],
+    institution:'NUS LKYSPP',
+    caseText:'Methods: OLS regression, difference-in-differences (DiD), sentiment analysis, data cleaning\n\nCase study: infrastructure and social protection as determinants of Southeast Asia\'s migration balance (2007–2017)'
+  },
+  {
+    skill:'Cost-benefit analysis',
+    sectors:['Academia'],
+    domains:['Environmental sustainability','Public administration'],
+    institution:'NUS LKYSPP',
+    caseText:'Methods: revealed and stated preference valuation, Monte Carlo simulation\n\nCase study: cost–benefit analysis of Singapore\'s SG Culture Pass, correcting for cultural underconsumption'
+  },
+  {
+    skill:'Client account management',
+    sectors:['Private sector'],
+    domains:['Environmental sustainability','Health','Digital policy','Market access'],
+    institution:'BCW Indonesia · White Rook Advisory',
+    caseText:'Managed public affairs client accounts across ESG, tobacco, nickel, palm oil, and digital policy sectors\n\nDeveloped and presented business proposals for corporate communications and public affairs mandates'
+  },
+  {
+    skill:'Project management & partnerships',
+    sectors:['Government','Private sector','Academia'],
+    domains:['Land & forestry','Health','Market access'],
+    institution:'ATR/BPN · KSP · White Rook Advisory',
+    caseText:'Led World Bank-funded spatial planning and land redistribution pilot at ATR/BPN\n\nManaged ADB-funded investment promotion engagement in Laos; coordinated APAC nutrition industry association secretariat functions'
+  },
+  {
+    skill:'Teaching & academic support',
+    sectors:['Academia'],
+    domains:['Public administration'],
+    institution:'NUS LKYSPP',
+    caseText:'Teaching assistance for the Politics & Public Policy course at NUS LKYSPP\n\nResearch support for three faculty members across EV procurement, administrative burden, and just transition policy projects'
+  },
+  {
+    skill:'Corporate communications',
+    sectors:['Private sector'],
+    domains:['Environmental sustainability','Health','Digital policy'],
+    institution:'BCW Indonesia',
+    caseText:'Led ESG and strategic government communications accounts at Burson Cohn & Wolfe\n\nProvided legal analysis and policy insights for client use and new business development'
+  },
+  {
+    skill:'Government public communications',
+    sectors:['Government'],
+    domains:['Land & forestry','Health','Gender'],
+    institution:'KSP · ATR/BPN',
+    caseText:'Crafted weekly content and communications schedules for the Deputy of Human Development\n\nDesigned and implemented monthly cross-ministry narrative strategies for agrarian reform and social forestry'
+  },
+];
+
+const allDomains = [...new Set(data.flatMap(d => d.domains))].sort();
+let activeSectors = new Set(['all']);
+let activeDomains = new Set(['all']);
+
+function buildFilters() {
+  const sf = document.getElementById('sector-filters');
+
+  const allS = document.createElement('span');
+  allS.className = 'chip active-all';
+  allS.textContent = 'All sectors';
+  allS.onclick = () => { activeSectors = new Set(['all']); refreshSectorChips(); render(); };
+  sf.appendChild(allS);
+
+  Object.keys(SECTORS).forEach(s => {
+    const ch = document.createElement('span');
+    ch.className = 'chip';
+    ch.textContent = s;
+    ch.dataset.sector = s;
+    ch.onclick = () => {
+      activeSectors.delete('all');
+      activeSectors.has(s) ? activeSectors.delete(s) : activeSectors.add(s);
+      if (activeSectors.size === 0) activeSectors.add('all');
+      refreshSectorChips();
+      render();
+    };
+    sf.appendChild(ch);
+  });
+
+  const df = document.getElementById('domain-filters');
+  const allD = document.createElement('span');
+  allD.className = 'chip active-all';
+  allD.textContent = 'All domains';
+  allD.onclick = () => { activeDomains = new Set(['all']); refreshDomainChips(); render(); };
+  df.appendChild(allD);
+
+  allDomains.forEach(d => {
+    const ch = document.createElement('span');
+    ch.className = 'chip';
+    ch.textContent = d;
+    ch.dataset.domain = d;
+    ch.onclick = () => {
+      activeDomains.delete('all');
+      activeDomains.has(d) ? activeDomains.delete(d) : activeDomains.add(d);
+      if (activeDomains.size === 0) activeDomains.add('all');
+      refreshDomainChips();
+      render();
+    };
+    df.appendChild(ch);
+  });
+}
+
+function refreshSectorChips() {
+  document.querySelectorAll('#sector-filters .chip').forEach(c => {
+    c.className = 'chip';
+    const s = c.dataset.sector;
+    if (!s && activeSectors.has('all')) { c.classList.add('active-all'); return; }
+    if (s && activeSectors.has(s)) c.classList.add(SECTORS[s].activeClass);
+  });
+}
+
+function refreshDomainChips() {
+  document.querySelectorAll('#domain-filters .chip').forEach(c => {
+    c.className = 'chip';
+    const d = c.dataset.domain;
+    if (!d && activeDomains.has('all')) { c.classList.add('active-all'); return; }
+    if (d && activeDomains.has(d)) c.classList.add('active-domain');
+  });
+}
+
+function matches(item) {
+  const sOk = activeSectors.has('all') || item.sectors.some(s => activeSectors.has(s));
+  const dOk = activeDomains.has('all') || item.domains.some(d => activeDomains.has(d));
+  return sOk && dOk;
+}
+
+function render() {
+  const grid = document.getElementById('grid');
+  const meta = document.getElementById('meta');
+  grid.innerHTML = '';
+  const filtered = data.filter(matches);
+  meta.textContent = `Showing ${filtered.length} of ${data.length} skills`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty">No skills match the current filters.</div>';
+    return;
+  }
+
+  filtered.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'row-card';
+
+    const top = document.createElement('div');
+    top.className = 'row-top';
+
+    const skillEl = document.createElement('div');
+    skillEl.className = 'row-skill';
+    skillEl.textContent = item.skill;
+
+    const dots = document.createElement('div');
+    dots.className = 'row-sec-dots';
+    item.sectors.forEach(s => {
+      if (SECTORS[s]) {
+        const d = document.createElement('div');
+        d.className = 'sec-dot';
+        d.style.background = SECTORS[s].dot;
+        d.title = s;
+        dots.appendChild(d);
+      }
+    });
+
+    const chev = document.createElement('div');
+    chev.className = 'expand-indicator';
+    chev.innerHTML = '&#8964;';
+
+    top.appendChild(skillEl);
+    top.appendChild(dots);
+    top.appendChild(chev);
+
+    const domTags = document.createElement('div');
+    domTags.className = 'row-domains';
+    item.domains.forEach(d => {
+      const t = document.createElement('span');
+      t.className = 'd-tag';
+      t.textContent = d;
+      domTags.appendChild(t);
+    });
+
+    const detail = document.createElement('div');
+    detail.className = 'row-detail';
+    detail.innerHTML = `
+      <div class="detail-body">
+        <div class="detail-inst">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          ${item.institution}
+        </div>
+        <div class="detail-case">${item.caseText}</div>
+      </div>`;
+
+    card.appendChild(top);
+    card.appendChild(domTags);
+    card.appendChild(detail);
+
+    card.addEventListener('click', () => {
+      const isOpen = detail.classList.contains('open');
+      document.querySelectorAll('.row-detail').forEach(d => d.classList.remove('open'));
+      document.querySelectorAll('.row-card').forEach(c => c.classList.remove('expanded'));
+      document.querySelectorAll('.expand-indicator').forEach(i => i.classList.remove('open'));
+      if (!isOpen) {
+        detail.classList.add('open');
+        card.classList.add('expanded');
+        chev.classList.add('open');
+      }
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+buildFilters();
+render();
+</script>
+</body>
+</html>
